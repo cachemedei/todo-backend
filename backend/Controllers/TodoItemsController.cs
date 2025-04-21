@@ -21,9 +21,19 @@ public class TodoItemsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
+    public async Task<ActionResult<List<TodoItem>>> GetTodoItems() //all todos
     {
         return await db.TodoItems.ToListAsync();
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<ActionResult<List<TodoItem>>> GetUsersTodos(int id) //todos for user
+    {
+        var usersTodos = await db.TodoItems
+            .Where<TodoItem>(x => x.AccountId == id)
+            .ToListAsync();
+
+        return usersTodos;
     }
 
     [HttpPost]
@@ -37,14 +47,13 @@ public class TodoItemsController : ControllerBase
     public async Task<ActionResult<TodoItem>> DeleteTodoItem(int id)
     {
         await todoItemServices.DeleteTodoAsync(id);
-        //only want to send id to delete
-        // var todoToDelete = await db.TodoItems.FindAsync(id)
-        //     ?? throw new Exception("Cannot find task to delete");
+        return NoContent();
+    }
 
-        // db.TodoItems.Remove(todoToDelete);
-
-        // await db.SaveChangesAsync();
-
+    [HttpPatch]
+    public async Task<ActionResult<TodoItem>> UpdateExistingTodo(UpdateTodoContract data)
+    {
+        await todoItemServices.UpdateTodoAsync(data);
         return NoContent();
     }
 }

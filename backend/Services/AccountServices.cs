@@ -21,7 +21,6 @@ public class AccountServices
         {
             Id = x.Id,
             FirstName = x.FirstName,
-            LastName = x.LastName,
             Email = x.Email
         }).ToList();
 
@@ -37,14 +36,13 @@ public class AccountServices
             throw new Exception("Email already in use.");
         }
 
-        var hashedPassword = BCrypt.Net.BCrypt.HashPassword(data.Password);
+        //var hashedPassword = BCrypt.Net.BCrypt.HashPassword(data.Password);
 
         var account = new Account
         {
             FirstName = data.FirstName,
-            LastName = data.LastName,
             Email = data.Email,
-            Password = hashedPassword
+            // Password = hashedPassword
         };
         db.Accounts.Add(account);
 
@@ -60,7 +58,6 @@ public class AccountServices
         {
             Id = account.Id,
             FirstName = account.FirstName,
-            LastName = account.LastName,
             Email = account.Email
         };
     }

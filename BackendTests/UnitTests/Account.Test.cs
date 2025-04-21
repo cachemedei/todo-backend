@@ -25,9 +25,7 @@ public class AccountTest : IClassFixture<UnitTestsFixture>
         var testAccount = new Account
         {
             FirstName = "Jill",
-            LastName = "Smith",
             Email = "jill@mail.com",
-            Password = "password" 
         };
 
         db.Accounts.Add(testAccount);
@@ -50,9 +48,7 @@ public class AccountTest : IClassFixture<UnitTestsFixture>
         var account = new Account
         {
             FirstName = "Jill",
-            LastName = "Smith",
             Email = "jill@mail.com",
-            Password = "password" 
         };
 
         await service.CreateAccountAsync(account);
@@ -60,9 +56,7 @@ public class AccountTest : IClassFixture<UnitTestsFixture>
         var duplicateEmail = new Account
         {
             FirstName = "Jane",
-            LastName = "Jones",
             Email = "jill@mail.com",
-            Password = "password2" 
         };
 
         var ex = await Assert.ThrowsAsync<Exception>(() => 

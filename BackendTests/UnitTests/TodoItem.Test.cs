@@ -24,9 +24,7 @@ public class TodoItemTest : IClassFixture<UnitTestsFixture>
         var testAccount = new Account 
         {
             FirstName = "Jill",
-            LastName = "Smith",
             Email = "jill@mail.com",
-            Password = "password"
         };
         db.Accounts.Add(testAccount);
         await db.SaveChangesAsync();

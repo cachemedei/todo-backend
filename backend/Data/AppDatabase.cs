@@ -1,9 +1,11 @@
 using backend.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Data;
 
-public class TodoDb : DbContext
+public class TodoDb : IdentityDbContext<IdentityUser>
 {
     public TodoDb(DbContextOptions<TodoDb> options)
         : base(options)
@@ -33,9 +35,7 @@ public class TodoDb : DbContext
 
             e.Property(x => x.Id).ValueGeneratedOnAdd();
             e.Property(x => x.FirstName).IsRequired();
-            e.Property(x => x.LastName).IsRequired();
             e.Property(x => x.Email).IsRequired();
-            e.Property(x => x.Password).IsRequired();
 
             e.HasMany(x => x.TodoItems)
                 .WithOne(x => x.Account)
